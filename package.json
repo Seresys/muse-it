@@ -6,11 +6,17 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "npm run dev",
+    "server": "node server/index.js",
+    "client": "npm run dev",
+    "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "chokidar": "^2.0.3",
+    "express": "^4.16.3",
+    "mongoose": "^5.1.4",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
