@@ -1,3 +1,4 @@
+import fs from 'fs';
 import Files from './model';
 
 const list = async (req, res) => {
@@ -20,11 +21,13 @@ const upload = async (req, res) => {
 const remove = async (req, res) => {
   const { id } = req.params;
 
-  const success = await Files.deleteOne({
+  const file = await Files.findOneAndRemove({
     id,
   });
 
-  res.json(success);
+  await fs.unlink(`.uploads/${file.name}`);
+
+  res.json(file);
 };
 
 export {
